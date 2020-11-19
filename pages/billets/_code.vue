@@ -1,19 +1,23 @@
 <template>
   <div class="container">
     <div class="toolbar">
+        <NuxtLink to="/">
       <Logo />
+      </NuxtLink>
     </div>
     <div class="content">
       <div>
-        <h1 class="title">Choose your dream destination...</h1>
-        <div class="links">
-          <NuxtLink v-for="item in dreamDestinations" :key="item.code" :to="`/billets/${item.code}`">
-            <a class="giant-button">{{ item.name }}</a>
-          </NuxtLink>
-          <!-- <a href="#" class="giant-button"> San Francisco, USA </a>
-          <a href="#" class="giant-button"> Québec, Canada </a>
-          <a href="#" class="giant-button"> Bora Bora, Polynésie </a>
-          <a href="#" class="giant-button"> Torres del Paine, Chile </a> -->
+        <h1 class="title">Choose your billet...</h1>
+        <div v-for="item in billets" :key="item.flight" class="giant-button">
+            {{ item.passenger }} <br>
+            {{ item.flight }} <br>
+            {{ item.from }} <br>
+            {{ item.to }} <br>
+            {{ item.class }} <br>
+            {{ item.gate }} <br>
+            {{ item.time }} <br>
+            {{ item.seat }} <br>
+            {{ item.number }} <br>
         </div>
       </div>
     </div>
@@ -26,16 +30,16 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   methods: {
     ...mapActions({
-      fetchDreamDestination: "destination/fetchDreamDestination",
+      fetchBillets: "billet/fetchBillets",
     }),
   },
   computed:{
     ...mapGetters({
-      dreamDestinations: "destination/getDreamDestinations",
+      billets: "billet/getBillets",
     }),
   },
   mounted() {
-      this.fetchDreamDestination();
+      this.fetchBillets(this.$route.params.code);
   },
 }
 </script>
