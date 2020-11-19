@@ -10,4 +10,7 @@ export default {
                 state.commit('setBillets', []);
             });
     },
+    setBillet(state, from) {
+        state.commit('setBillet', state.state.items.find((item) => item.from === from));
+    },
 }
